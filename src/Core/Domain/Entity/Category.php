@@ -2,14 +2,13 @@
 
 namespace Core\Domain\Entity;
 
-use Core\Domain\ValueObject\Uuid;
-use Core\Domain\Validation\DomainValidation;
 use Core\Domain\Entity\Traits\MethodsMagicsTrait;
+use Core\Domain\Validation\DomainValidation;
+use Core\Domain\ValueObject\Uuid;
 use DateTime;
 
 class Category
 {
-
     use MethodsMagicsTrait;
 
     public function __construct(
@@ -18,8 +17,7 @@ class Category
         protected string $description = '',
         protected bool $isActive = true,
         protected DateTime|string $createdAt = '',
-    )
-    {
+    ) {
         $this->id = $this->id ? new Uuid($this->id) : Uuid::random();
         $this->createdAt = $this->createdAt ? new DateTime($this->createdAt) : new DateTime();
 
@@ -44,11 +42,10 @@ class Category
         $this->validate();
     }
 
-    public function validate()
+    private function validate()
     {
         DomainValidation::strMaxLength($this->name);
         DomainValidation::strMinLength($this->name);
         DomainValidation::strCanNullAndMaxLength($this->description);
     }
-    
 }

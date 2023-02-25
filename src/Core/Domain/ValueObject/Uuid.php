@@ -2,17 +2,16 @@
 
 namespace Core\Domain\ValueObject;
 
-use Doctrine\Instantiator\Exception\InvalidArgumentException;
+use InvalidArgumentException;
 use Ramsey\Uuid\Uuid as RamseyUuid;
 
-class uuid
+class Uuid
 {
     public function __construct(
         protected string $value
-    )
-    {
-        $this->ensureIsValidate($value);
-    }   
+    ) {
+        $this->ensureIsValid($value);
+    }
 
     public static function random(): self
     {
@@ -21,15 +20,13 @@ class uuid
 
     public function __toString(): string
     {
-        return $this->value;   
+        return $this->value;
     }
 
-    private function ensureIsValidate(string $id)
+    private function ensureIsValid(string $id)
     {
-        if (!RamseyUuid::isValid($id)){
+        if (! RamseyUuid::isValid($id)) {
             throw new InvalidArgumentException(sprintf('<%s> does not allow the value <%s>.', static::class, $id));
-        } 
-        
+        }
     }
-    
 }
