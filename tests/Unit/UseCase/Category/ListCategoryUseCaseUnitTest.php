@@ -50,4 +50,11 @@ class ListCategoryUseCaseUnitTest extends TestCase
         $this->spy->shouldHaveReceived('findById');
         
     }
+
+    protected function tearDown(): void
+    {
+        Mockery::close();
+
+        parent::tearDown();
+    }
 }
